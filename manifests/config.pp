@@ -415,13 +415,14 @@ class xdmod::config {
     mode    => '0644',
     content => $user_pi_names_content,
   }
-
-  file { '/etc/cron.d/xdmod':
-    ensure  => 'file',
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
-    content => template('xdmod/xdmod_cron.erb'),
+  if $xdmod::enable_shred_ingest_cron {
+    file { '/etc/cron.d/xdmod':
+      ensure  => 'file',
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0644',
+      content => template('xdmod/xdmod_cron.erb'),
+    }
   }
   file { '/etc/cron.d/xdmod-storage':
     ensure  => $storage_file_ensure,

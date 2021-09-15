@@ -270,6 +270,7 @@ class xdmod (
   Boolean $enable_supremm                       = false,
   Boolean $enable_cloud_realm                   = false,
   Boolean $enable_ondemand                      = false,
+  Boolean $enable_shred_ingest_cron             = true,
   Optional[String] $local_repo_name             = undef,
   Boolean $manage_epel                          = true,
   String $package_ensure                        = 'present',

@@ -10,6 +10,7 @@
 0 1 1 * * xdmod /usr/lib64/xdmod/update_check.php >/dev/null
 <% end -%>
 
+<% if ! scope.lookupvar('xdmod::disable_shred_ingest_cron') -%>
 # Shred and ingest:
 <%- shred_hour = scope['xdmod::shred_hour_start'] -%>
 <%- ingest_hour = nil %>
@@ -32,6 +33,7 @@ end
 <%- if ! ingest_hour.nil? -%>
 0 <%= scope['xdmod::ingest_hour'] || ingest_hour %> * * * xdmod /usr/bin/xdmod-ingestor --quiet
 <%- end -%>
+<% end -%>
 
 <%- if scope['xdmod::enable_supremm'] -%>
 # Ingest job level sumamries into XDMoD and run aggregation
